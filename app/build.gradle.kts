@@ -33,15 +33,17 @@ android {
             )
         }
     }
+
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = "17"
     }
     buildFeatures {
         compose = true
+        buildConfig = true
     }
     composeOptions {
         kotlinCompilerExtensionVersion = "1.4.3"
@@ -51,12 +53,17 @@ android {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
         }
     }
+
+    hilt {
+        enableAggregatingTask = true
+    }
 }
 
 dependencies {
     implementation(libs.core.ktx)
 
     implementation(libs.ui)
+    implementation(libs.ui.util)
     implementation(libs.ui.graphics)
     implementation(libs.material3)
     implementation(libs.material.icons)
@@ -85,8 +92,8 @@ dependencies {
     androidTestImplementation(libs.coroutines.test)
 
     //Hilt Work
-    implementation(libs.hilt.work)
-    kapt(libs.hilt.compiler)
+//    implementation(libs.hilt.work)
+//    kapt(libs.hilt.compiler)
 
     implementation(libs.hilt.navigation.compose)
     kapt(libs.hilt.android)
@@ -118,4 +125,16 @@ dependencies {
     debugImplementation(libs.ui.tooling)
     debugImplementation(libs.ui.test.manifest)
 
+    // Coil Compose
+    implementation(libs.coil)
+
+    // Vico Chart
+    implementation(libs.vico.core)
+    implementation(libs.vico.compose)
+    implementation(libs.vico.m3)
+}
+
+// Allow references to generated code
+kapt {
+    correctErrorTypes = true
 }
