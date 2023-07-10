@@ -111,7 +111,7 @@ fun Tabs(
                         Text(
                             text = tab,
                             style = MaterialTheme.typography.labelLarge,
-                            color = if (tabIndex == index) containerColor else outlineColor
+                            color = if (tabIndex == index) containerColor else secondaryTextColor
                         )
                     }
                 }

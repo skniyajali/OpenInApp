@@ -31,6 +31,7 @@ import com.niyaj.openinappold.features.common.ui.theme.SpaceMedium
 import com.niyaj.openinappold.features.common.ui.theme.SpaceMediumMax
 import com.niyaj.openinappold.features.common.ui.theme.outlineColor
 import com.niyaj.openinappold.features.common.ui.theme.primaryColor
+import com.niyaj.openinappold.features.common.ui.theme.secondaryTextColor
 
 
 @Composable
@@ -112,7 +113,7 @@ fun StandardOutlineIconButton(
         Icon(
             imageVector = icon,
             contentDescription = contentDescription,
-            tint = outlineColor,
+            tint = secondaryTextColor,
         )
     }
 }

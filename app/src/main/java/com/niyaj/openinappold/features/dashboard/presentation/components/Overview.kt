@@ -37,9 +37,11 @@ import com.niyaj.openinappold.features.common.ui.theme.containerColor
 import com.niyaj.openinappold.features.common.ui.theme.outlineColor
 import com.niyaj.openinappold.features.common.ui.theme.primaryColor
 import com.niyaj.openinappold.features.common.ui.theme.secondaryTextColor
+import com.niyaj.openinappold.features.common.utils.Extensions
+import com.niyaj.openinappold.features.common.utils.Extensions.getFirstDate
+import com.niyaj.openinappold.features.common.utils.Extensions.getLastDate
 import com.niyaj.openinappold.features.dashboard.domain.model.Entry
 import com.niyaj.openinappold.features.dashboard.domain.utils.DashboardScreenTags.OVERVIEW
-import com.niyaj.openinappold.features.common.utils.Extensions
 import com.patrykandpatrick.vico.compose.axis.horizontal.bottomAxis
 import com.patrykandpatrick.vico.compose.axis.vertical.startAxis
 import com.patrykandpatrick.vico.compose.chart.Chart
@@ -56,7 +58,8 @@ import java.math.RoundingMode
 fun Overview(
     modifier: Modifier = Modifier,
     data: Map<String, Int>,
-    title: String = OVERVIEW
+    title: String = OVERVIEW,
+    onClickDate: () -> Unit = {}
 ) {
     Card(
         modifier = modifier
@@ -86,9 +89,9 @@ fun Overview(
                 )
 
                 DateSelectionBox(
-                    startDate = "20 sep",
-                    endDate = "28 oct",
-                    onClickDate = {}
+                    startDate = data.getFirstDate(),
+                    endDate = data.getLastDate(),
+                    onClickDate = onClickDate
                 )
             }
 
