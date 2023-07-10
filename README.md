@@ -1,11 +1,13 @@
 # Dashboard UI
 
+_Followed Best Practices and Industry Standard Guidelines_
+
 - Language - Android, Kotlin
 - Framework - Jetpack Compose
 - Design - Material 3 & Custom Design
 - Architecture - MVVM(Clean Architecture)
 
-# --------------------------------------------------------
+#
 
 |                                               |                                               |                                               |
 |-----------------------------------------------|-----------------------------------------------|-----------------------------------------------|
