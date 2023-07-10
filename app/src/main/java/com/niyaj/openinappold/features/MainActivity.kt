@@ -10,9 +10,15 @@ import androidx.core.view.WindowCompat
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.niyaj.openinappold.features.campaigns.presentation.CampaignsScreen
 import com.niyaj.openinappold.features.common.ui.theme.OpenInAppOldTheme
+import com.niyaj.openinappold.features.common.utils.Screens.CAMPAIGNS_SCREEN_ROUTE
+import com.niyaj.openinappold.features.common.utils.Screens.COURSES_SCREEN_ROUTE
+import com.niyaj.openinappold.features.common.utils.Screens.DASHBOARD_SCREEN_ROUTE
+import com.niyaj.openinappold.features.common.utils.Screens.PROFILE_SCREEN_ROUTE
+import com.niyaj.openinappold.features.courses.presentation.CoursesScreen
 import com.niyaj.openinappold.features.dashboard.presentation.DashboardScreen
-import com.niyaj.openinappold.features.utils.Screens.DASHBOARD_SCREEN_ROUTE
+import com.niyaj.openinappold.features.profile.presentation.ProfileScreen
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -37,6 +43,18 @@ class MainActivity : ComponentActivity() {
                     ) {
                         composable(DASHBOARD_SCREEN_ROUTE) {
                             DashboardScreen(navController = navController)
+                        }
+                        
+                        composable(COURSES_SCREEN_ROUTE) {
+                            CoursesScreen(navController = navController)
+                        }
+                        
+                        composable(CAMPAIGNS_SCREEN_ROUTE) {
+                            CampaignsScreen(navController = navController)
+                        }
+                        
+                        composable(PROFILE_SCREEN_ROUTE) {
+                            ProfileScreen(navController = navController)
                         }
                     }
                 }

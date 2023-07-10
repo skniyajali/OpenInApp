@@ -1,4 +1,4 @@
-package com.niyaj.openinappold.features.utils
+package com.niyaj.openinappold.features.common.utils
 
 import android.content.ClipData
 import android.content.ClipboardManager
