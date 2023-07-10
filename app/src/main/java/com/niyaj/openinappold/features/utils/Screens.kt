@@ -1,4 +1,4 @@
-package com.niyaj.openinappold.features.common.utils
+package com.niyaj.openinappold.features.utils
 
 object Screens {
 

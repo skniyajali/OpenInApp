@@ -3,7 +3,7 @@ package com.niyaj.openinappold.features.dashboard.presentation
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.niyaj.openinappold.features.dashboard.domain.repository.DashboardRepository
-import com.niyaj.openinappold.features.common.utils.Resource
+import com.niyaj.openinappold.features.utils.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow

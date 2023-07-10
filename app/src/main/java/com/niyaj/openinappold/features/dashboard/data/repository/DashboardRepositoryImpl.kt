@@ -3,7 +3,7 @@ package com.niyaj.openinappold.features.dashboard.data.repository
 import com.niyaj.openinappold.features.dashboard.data.service.DashboardService
 import com.niyaj.openinappold.features.dashboard.domain.model.Dashboard
 import com.niyaj.openinappold.features.dashboard.domain.repository.DashboardRepository
-import com.niyaj.openinappold.features.common.utils.Resource
+import com.niyaj.openinappold.features.utils.Resource
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow

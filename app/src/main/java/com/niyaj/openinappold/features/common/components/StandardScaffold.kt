@@ -2,22 +2,20 @@ package com.niyaj.openinappold.features.common.components
 
 import androidx.annotation.DrawableRes
 import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Add
-import androidx.compose.material3.BottomAppBar
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.FabPosition
+import androidx.compose.material3.FilledTonalIconButton
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButtonDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
@@ -40,34 +38,33 @@ import com.niyaj.openinappold.features.common.ui.theme.SpaceLarge
 import com.niyaj.openinappold.features.common.ui.theme.SpaceMedium
 import com.niyaj.openinappold.features.common.ui.theme.SpaceMini
 import com.niyaj.openinappold.features.common.ui.theme.containerColor
-import com.niyaj.openinappold.features.common.ui.theme.outlineColor
 import com.niyaj.openinappold.features.common.ui.theme.primaryColor
 import com.niyaj.openinappold.features.common.ui.theme.secondaryTextColor
 import com.niyaj.openinappold.features.common.ui.theme.surfaceColor
-import com.niyaj.openinappold.features.common.utils.Screens.CAMPAIGNS_SCREEN_ROUTE
-import com.niyaj.openinappold.features.common.utils.Screens.COURSES_SCREEN_ROUTE
-import com.niyaj.openinappold.features.common.utils.Screens.DASHBOARD_SCREEN_ROUTE
-import com.niyaj.openinappold.features.common.utils.Screens.PROFILE_SCREEN_ROUTE
+import com.niyaj.openinappold.features.utils.Screens.CAMPAIGNS_SCREEN_ROUTE
+import com.niyaj.openinappold.features.utils.Screens.COURSES_SCREEN_ROUTE
+import com.niyaj.openinappold.features.utils.Screens.DASHBOARD_SCREEN_ROUTE
+import com.niyaj.openinappold.features.utils.Screens.PROFILE_SCREEN_ROUTE
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun StandardScaffold(
-    modifier: Modifier = Modifier,
     navController: NavController,
     title: String,
-    snackbarHost: @Composable () -> Unit = {},
-    floatingActionButton: @Composable () -> Unit = {},
-    floatingActionButtonPosition: FabPosition = FabPosition.Center,
-    containerColor: Color = primaryColor,
-    navActions: @Composable (RowScope.() -> Unit) = {},
+    @DrawableRes
+    navActionsIcon: Int,
     bottomBar: @Composable () -> Unit = {
         BottomNavigation(navController = navController, onClickFab = {})
     },
+    onClickNavAction: () -> Unit = {},
     content: @Composable (PaddingValues) -> Unit,
 ) {
     val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior()
 
     Scaffold(
+        modifier = Modifier
+            .fillMaxSize()
+            .nestedScroll(scrollBehavior.nestedScrollConnection),
         topBar = {
             TopAppBar(
                 title = {
@@ -76,7 +73,22 @@ fun StandardScaffold(
                         style = MaterialTheme.typography.headlineSmall,
                     )
                 },
-                actions = navActions,
+                actions = {
+                    FilledTonalIconButton(
+                        onClick = onClickNavAction,
+                        shape = RoundedCornerShape(SpaceMedium),
+                        colors = IconButtonDefaults.filledTonalIconButtonColors(
+                            containerColor = Color.White.copy(alpha = 0.12f)
+                        ),
+                        modifier = Modifier.size(40.dp)
+                    ) {
+                        Icon(
+                            painter = painterResource(id = navActionsIcon),
+                            contentDescription = "icon",
+                            tint = Color.White
+                        )
+                    }
+                },
                 scrollBehavior = scrollBehavior,
                 colors = TopAppBarDefaults.topAppBarColors(
                     containerColor = primaryColor,
@@ -85,13 +97,7 @@ fun StandardScaffold(
             )
         },
         bottomBar = bottomBar,
-        floatingActionButton = floatingActionButton,
-        floatingActionButtonPosition = floatingActionButtonPosition,
-        snackbarHost = snackbarHost,
-        containerColor = containerColor,
-        modifier = modifier
-            .fillMaxSize()
-            .nestedScroll(scrollBehavior.nestedScrollConnection),
+        containerColor = primaryColor,
     ) {
         ElevatedCard(
             modifier = Modifier
@@ -141,93 +147,81 @@ fun BottomNavigation(
             iconRes = R.drawable.user
         )
     )
-
-    BottomAppBar(
+    
+    NavigationBar(
         containerColor = containerColor,
-        modifier = modifier.fillMaxWidth()
     ) {
-        NavigationBar(
-            containerColor = containerColor,
-            contentColor = outlineColor,
-            modifier = Modifier
-                .fillMaxWidth(),
-        ){
-            items.take(2).forEach {
-                NavigationBarItem(
-                    selected = currentRoute == it.route,
-                    onClick = {
-                        navController.navigate(it.route)
-                    },
-                    icon = {
-                        Icon(
-                            painter = painterResource(id = it.iconRes),
-                            contentDescription = it.title,
-                        )
-                    },
-                    label = {
-                        Text(
-                            text = it.title,
-                            style = MaterialTheme.typography.labelSmall.copy(
-                                fontSize = 11.sp
-                            ),
-                        )
-                    },
-                    colors = NavigationBarItemDefaults.colors(
-                        selectedIconColor = it.selectedColor,
-                        selectedTextColor = it.selectedColor,
-                        unselectedIconColor = it.unselectedColor,
-                        unselectedTextColor = it.unselectedColor,
-                        indicatorColor = containerColor,
+        items.take(2).forEach {
+            NavigationBarItem(
+                selected = currentRoute == it.route,
+                onClick = {
+                    navController.navigate(it.route)
+                },
+                icon = {
+                    Icon(
+                        painter = painterResource(id = it.iconRes),
+                        contentDescription = it.title,
                     )
-                )
-            }
-
-            FloatingActionButton(
-                modifier = Modifier
-                    .padding(top = SpaceMini)
-                    .offset(
-                        y = SpaceMedium
-                    ),
-                onClick = onClickFab,
-                shape = CircleShape,
-                containerColor = primaryColor,
-                contentColor = containerColor
-            ) {
-                Icon(
-                    imageVector = Icons.Outlined.Add,
-                    contentDescription = "Fab Button"
-                )
-            }
-
-            items.takeLast(2).forEach {
-                NavigationBarItem(
-                    selected = currentRoute == it.route,
-                    onClick = {
-                        navController.navigate(it.route)
-                    },
-                    icon = {
-                        Icon(
-                            painter = painterResource(id = it.iconRes),
-                            contentDescription = it.title,
-                        )
-                    },
-                    label = {
-                        Text(
-                            text = it.title,
-                            style = MaterialTheme.typography.labelSmall.copy(
-                                fontSize = 11.sp
-                            ),
-                        )
-                    },
-                    colors = NavigationBarItemDefaults.colors(
-                        selectedIconColor = it.selectedColor,
-                        selectedTextColor = it.selectedColor,
-                        unselectedIconColor = it.unselectedColor,
-                        unselectedTextColor = it.unselectedColor,
-                        indicatorColor = containerColor,
+                },
+                label = {
+                    Text(
+                        text = it.title,
+                        style = MaterialTheme.typography.labelSmall.copy(
+                            fontSize = 11.sp
+                        ),
                     )
+                },
+                colors = NavigationBarItemDefaults.colors(
+                    selectedIconColor = it.selectedColor,
+                    selectedTextColor = it.selectedColor,
+                    unselectedIconColor = it.unselectedColor,
+                    unselectedTextColor = it.unselectedColor,
+                    indicatorColor = containerColor,
                 )
-            }
+            )
+        }
+
+        FloatingActionButton(
+            modifier = Modifier.padding(top = SpaceMini),
+            onClick = onClickFab,
+            shape = CircleShape,
+            containerColor = primaryColor,
+            contentColor = containerColor
+        ) {
+            Icon(
+                imageVector = Icons.Outlined.Add,
+                contentDescription = "Fab Button"
+            )
+        }
+
+        items.takeLast(2).forEach {
+            NavigationBarItem(
+                selected = currentRoute == it.route,
+                onClick = {
+                    navController.navigate(it.route)
+                },
+                icon = {
+                    Icon(
+                        painter = painterResource(id = it.iconRes),
+                        contentDescription = it.title,
+                    )
+                },
+                label = {
+                    Text(
+                        text = it.title,
+                        style = MaterialTheme.typography.labelSmall.copy(
+                            fontSize = 11.sp
+                        ),
+                    )
+                },
+                colors = NavigationBarItemDefaults.colors(
+                    selectedIconColor = it.selectedColor,
+                    selectedTextColor = it.selectedColor,
+                    unselectedIconColor = it.unselectedColor,
+                    unselectedTextColor = it.unselectedColor,
+                    indicatorColor = containerColor,
+                )
+            )
         }
     }
 }
