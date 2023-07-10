@@ -1,6 +1,7 @@
-package com.niyaj.openinappold.features.utils
+package com.niyaj.openinappold.features.common.utils
 
 object Constants {
+
 
 //    dashboardNew
     const val BASE_URL = "https://api.inopenapp.com/api/v1/"

@@ -2,7 +2,7 @@ package com.niyaj.openinappold
 
 import android.app.Application
 import com.niyaj.openinappold.features.common.api.SessionManager
-import com.niyaj.openinappold.features.utils.Constants.TOKEN
+import com.niyaj.openinappold.features.common.utils.Constants.TOKEN
 import dagger.hilt.android.HiltAndroidApp
 import timber.log.Timber
 
@@ -12,7 +12,10 @@ class OpenInAppApplication : Application() {
     override fun onCreate() {
         super.onCreate()
 
-        Timber.plant(Timber.DebugTree())
+        if (BuildConfig.DEBUG) {
+            Timber.plant(Timber.DebugTree())
+        }
+
 
         val sessionManager = SessionManager(this.applicationContext)
 

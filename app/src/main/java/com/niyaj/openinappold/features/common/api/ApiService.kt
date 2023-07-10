@@ -2,7 +2,7 @@ package com.niyaj.openinappold.features.common.api
 
 import android.content.Context
 import com.niyaj.openinappold.features.dashboard.data.service.DashboardService
-import com.niyaj.openinappold.features.utils.Constants.BASE_URL
+import com.niyaj.openinappold.features.common.utils.Constants.BASE_URL
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
